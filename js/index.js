@@ -37,23 +37,16 @@ output.innerHTML = '';
   computerScore = 0;
 });
 
-pickRock.addEventListener('click', function(){
-  playerMove('rock', computerMove());
-  countingScores();
-  gameOver ();
-});
+var selectMove = document.getElementsByClassName('player-move');
 
-pickPaper.addEventListener('click', function(){
-  playerMove('paper', computerMove());
+for(var i = 0; i < selectMove.length; i++){
+  selectMove[i].addEventListener('click', function(){
+  var kindOfMove = this.getAttribute('data-move');
+  playerMove(kindOfMove, computerMove());
   countingScores();
   gameOver ();
-});
-
-pickScissors.addEventListener('click', function(){
-  playerMove('scissors', computerMove());
-  countingScores();
-  gameOver ();
-});
+  });
+};
 
 var computerMove = function() {
     var computerNumber = Math.floor(Math.random() * 3  + 1);
@@ -90,7 +83,8 @@ var countingScores = function (){
 var gameOver = function (){
   if(playerScore == numbOfRounds || computerScore == numbOfRounds){
     if (playerScore > computerScore) {
-    output.innerHTML = 'GAME OVER! YOU WON ENTIRE GAME';}
+    output.innerHTML = 'GAME OVER! YOU WON ENTIRE GAME';
+    }
     else {
       output.innerHTML = 'GAME OVER! YOU LOST ENTIRE GAME';
     };
