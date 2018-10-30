@@ -1,40 +1,56 @@
 <!DOCTYPE html>
 <html lang="en" >
-
 <head>
   <meta charset="UTF-8">
   <title>Zad. 9.3</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
   <h1>ROCK-PAPER-SCISSORS!</h1>
-<div>
-	<button id = "rock-button" class = "player-move" data-move = "rock">ROCK</button>
-</div><br><br>
-
-<div>
-	<button id = "paper-button" class = "player-move" data-move = "paper">PAPER</button>
-</div><br><br>
-
-<div>
-	<button id = "scissors-button" class = "player-move" data-move = "scissors" >SCISSORS</button>
-</div>
-
-<div id = "output"><br><br>
-</div>
-
-<div id = "result">
-  <div id = "player-score">
-  </div>
-  <div id = "computer-score">
-  </div>
-</div>
-
-<div><button id = "new-game">START NEW GAME</button>
-  <div id = "round-to-play"></div>
-</div>
+  <div>
+    <button id = "rock-button" class = "player-move" data-move = "rock">ROCK</button>
+  </div><br><br>
   
+  <div>
+    <button id = "paper-button" class = "player-move" data-move = "paper">PAPER</button>
+  </div><br><br>
+  
+  <div>
+    <button id = "scissors-button" class = "player-move" data-move = "scissors" >SCISSORS</button>
+  </div>
+  
+  <div id = "output"><br><br></div>
+  
+  <div id = "result">
+    <div id = "player-score"></div>
+    <div id = "computer-score"></div>
+  </div>
+  
+  <div><button id = "new-game">START NEW GAME</button>
+    <div id = "round-to-play"></div>
+  </div>
+  
+  <div class="overlay result" id="modal-overlay">
+    <div class="modal result">
+      <a href="#" class="close">x</a>
+      <header>GAME RESULT</header>
+      <div class="content">
+        <table>
+          <thead>
+            <tr>
+              <th>Player Move</th>
+              <th>Computer Move</th>
+              <th>Computer Scores</th>
+              <th>Player Scores</th>
+              <th>Winner of the Round</th>
+            </tr>
+          </thead>
+          <tbody class = "table-content">
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
     <script  src="js/index.js"></script>
 </body>
 

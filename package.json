@@ -22,15 +22,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/psurmicki/zad-8.4.git"
+    "url": "git+https://github.com/psurmicki/Rock-Paper-Scissors.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/psurmicki/zad-8.4/issues"
+    "url": "https://github.com/psurmicki/Rock-Paper-Scissors/issues"
   },
-  "homepage": "https://github.com/psurmicki/zad-8.4#readme",
+  "homepage": "https://github.com/psurmicki/Rock-Paper-Scissors#readme",
   "devDependencies": {
     "autoprefixer-cli": "^1.0.0",
     "browser-sync": "^2.24.7",
