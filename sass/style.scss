@@ -1,25 +1,40 @@
 body { 
   padding: 10px;
-  text-align: center; 
+	text-align: center; 
+	background-color: rgb(149, 221, 187)
+}
+.container {
+	display: flex;
+	justify-content: space-around;
+}
+
+i {
+	border-radius: 20%;
+	margin: 10px;
+	font-size: 40px;
+	text-align: center;
+}
+
+.fa-hand-rock {
+	color: rgb(112, 111, 111);
+}
+.fa-hand-paper{
+	color: rgb(255, 248, 188)
+}
+.fa-hand-scissors{
+	color: rgb(202, 59, 59)
 }
 
 button { 
-  display: float; 
-  padding: 11px 50px; 
-  max-width: 100%; 
-  font-size: 16px; 
+  padding: 10px 50px; 
+  font-size: 15px; 
   font-weight: 600; 
-  text-align: center; 
-  white-space: nowrap; 
-  vertical-align: middle;
   color: #fff; 
-  background-color: #02ac46; 
-  border: 2px solid #02ac46; 
+  background-color: rgb(2, 147, 172); 
+  border: 2px solid rgb(2, 172, 70); 
   border-radius: 4px; 
   transition: color .3s, background-color .3s; 
   cursor: pointer; 
-  outline: 0 !important; 
-  text-decoration: none;
   -ms-touch-action: manipulation; 
   touch-action: manipulation; 
   -webkit-user-select: none; 
@@ -34,7 +49,6 @@ button {
   background-color: #fff; 
 }
 
-/*#result { border: solid 2px; }*/
 .hideButtons { 
  display: none; 
 }
@@ -54,12 +68,13 @@ button {
 
 .modal {
 	background: #fff;
-	min-width: 200px;
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate3d(-50%, -50%, 0);
-	
+	display: block;
+	overflow: auto;
+  max-height: 50vh;
 	.close {
 		position: absolute;
 		right: 0;
@@ -68,7 +83,6 @@ button {
 		color: #000;
 		text-decoration: none;
 	}
-	
 	header {
 		font-size: 20px;
 		line-height: 30px;
@@ -76,7 +90,6 @@ button {
 		font-weight: bold;
 		padding: 0 30px;
 	}
-
 	.content {
 		min-height: 30px;
 		padding: 5px 30px;

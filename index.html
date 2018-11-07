@@ -2,29 +2,38 @@
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
-  <title>Zad. 9.3</title>
-    <link rel="stylesheet" href="css/style.css">
+  <title>ROCK-PAPER-SCISSORS</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <h1>ROCK-PAPER-SCISSORS!</h1>
-  <div>
-    <button id = "rock-button" class = "player-move" data-move = "rock">ROCK</button>
-  </div><br><br>
-  
-  <div>
-    <button id = "paper-button" class = "player-move" data-move = "paper">PAPER</button>
-  </div><br><br>
-  
-  <div>
-    <button id = "scissors-button" class = "player-move" data-move = "scissors" >SCISSORS</button>
+  <div class="container">
+    <div>
+      <button id = "rock-button" class = "player-move" data-move = "rock">
+          <i class="fas fa-hand-rock"></i>
+      </button>
+    </div>
+    
+    <div>
+      <button id = "paper-button" class = "player-move" data-move = "paper">
+          <i class="fas fa-hand-paper"></i>
+      </button>
+    </div>
+    
+    <div>
+      <button id = "scissors-button" class = "player-move" data-move = "scissors">
+          <i class="fas fa-hand-scissors"></i>
+      </button>
+    </div>
   </div>
+    <div id = "output"></div>
+    
+    <div id = "result">
+      <div id = "player-score"></div>
+      <div id = "computer-score"></div>
+    </div>
   
-  <div id = "output"><br><br></div>
-  
-  <div id = "result">
-    <div id = "player-score"></div>
-    <div id = "computer-score"></div>
-  </div>
   
   <div><button id = "new-game">START NEW GAME</button>
     <div id = "round-to-play"></div>

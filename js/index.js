@@ -27,8 +27,8 @@ params.newGame.addEventListener('click', function(){
   params.numbOfRounds = prompt('How many rounds do you want to play?');
   if(isFinite(params.numbOfRounds) && params.numbOfRounds > 0) {
     params.roundCount.innerHTML = 'You have chosen: ' + params.numbOfRounds + ' rounds to win the game!';
-    showButtons() 
-  } else {
+    showButtons();
+  }else {
     params.roundCount.innerHTML = 'Please, give a number!';
     params.newGame.classList.toggle('hideButtons');
   };
@@ -36,7 +36,6 @@ params.newGame.addEventListener('click', function(){
   params.output.innerHTML = '';
   params.playerScore = 0;
   params.computerScore = 0;
-  params.progress = []
 });
 
 var selectMove = document.getElementsByClassName('player-move');
@@ -54,9 +53,9 @@ var computerMove = function() {
   var computerNumber = Math.floor(Math.random() * 3  + 1);
   if(computerNumber == 1) {
     computerNumber = 'paper';
-  } else if (computerNumber == 2) {
+  }else if(computerNumber == 2) {
     computerNumber = 'rock';
-  } else {
+  }else {
     computerNumber = 'scissors';
   }
   return computerNumber;
@@ -66,14 +65,14 @@ var playerMove = function(kindOfMove,winner,playerScore,computerScore, computerP
   if(kindOfMove === computerPick) {
     params.output.innerHTML = 'It is DRAW!<br>You chose: '+ kindOfMove + ' computer chose: ' + computerPick + '<br>';
     params.winner = 'no one';
-  } else if (
+  }else if(
     (kindOfMove === 'paper' && computerPick === 'rock') || 
     (kindOfMove === 'rock' && computerPick === 'scissors') ||
     (kindOfMove === 'scissors' && computerPick === 'paper')) {
       params.output.innerHTML = 'You WON !<br>You chose: ' + kindOfMove + ' and computer chose: ' + computerPick + '<br>';
       params.playerScore++;
       params.winner = 'player';
-  } else {
+  }else {
       params.output.innerHTML = ' You LOST !<br>You chose: ' + kindOfMove + ' and computer chose: ' + computerPick + '<br>';
       params.computerScore++;
       params.winner = 'computer';
