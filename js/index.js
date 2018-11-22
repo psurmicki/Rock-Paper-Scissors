@@ -36,6 +36,7 @@ params.newGame.addEventListener('click', function(){
   params.output.innerHTML = '';
   params.playerScore = 0;
   params.computerScore = 0;
+  params.progress = [];
 });
 
 var selectMove = document.getElementsByClassName('player-move');
@@ -92,7 +93,7 @@ var countingScores = function (){
 };
 
 var gameOver = function (){
-  if(params.playerScore == params.numbOfRounds || params.computerScore == params.numbOfRounds){
+  if(params.playerScore == params.numbOfRounds || params.computerScore == params.numbOfRounds) {
     if (params.playerScore > params.computerScore) {
       showResult('YOU WON ENTIRE GAME');
     } else {
@@ -108,11 +109,12 @@ var gameOver = function (){
 };
 
 var showResult = function(text){
-  var showModals = document.getElementsByClassName('result')
+  var showModals = document.getElementsByClassName('result');
   for(var i = 0; i < showModals.length; i++){
-  showModals[i].classList.add('show')
+  showModals[i].classList.add('show');
   };
   var tableResult = document.querySelector('tbody');
+  tableResult.innerHTML = '';
   for (var j = 0; j < params.progress.length; j++) {
   tableResult.innerHTML += '<tr><td>' + params.progress[j].playerMove + '</td><td>' + params.progress[j].computerMove +'</td><td>' + params.progress[j].computerScore + '</td><td>' + params.progress[j].playerScore +'</td><td>' + params.progress[j].winner + '</td></tr>'; 
   };
@@ -122,6 +124,7 @@ var showResult = function(text){
 var hideModal = function(event){
 	event.preventDefault();
   document.querySelector('#modal-overlay').classList.remove('show');
+  
 };
 
 var closeButtons = document.querySelectorAll('.close');

@@ -20,7 +20,7 @@ button:hover, button:active { color: #02ac46; background-color: #fff; }
 
 .overlay.show { display: block; }
 
-.modal { background: #fff; position: absolute; top: 50%; left: 50%; transform: translate3d(-50%, -50%, 0); display: block; overflow: auto; max-height: 50vh; }
+.modal { background: #fff; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: block; overflow: auto; max-height: 50vh; }
 
 .modal .close { position: absolute; right: 0; top: 0; padding: 5px; color: #000; text-decoration: none; }
 
