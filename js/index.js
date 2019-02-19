@@ -1,140 +1,139 @@
-var params = {
-  output: document.getElementById('output'),
-  pickRock: document.getElementById('rock-button'),
-  pickPaper: document.getElementById('paper-button'),
-  pickScissors: document.getElementById('scissors-button'),
-  result: document.getElementById('result'),
-  newGame: document.getElementById('new-game'),
-  playerScoreCount: document.getElementById('player-score'),
-  computerScoreCount: document.getElementById('computer-score'),
-  roundCount: document.getElementById('round-to-play'),
-  playerScore: 0,
-  computerScore: 0,
-  numbOfRounds: 0,
-  winner: '',
+const moves = [...document.querySelectorAll('.select img')];
+const printNumbOfRounds = document.querySelector('p.numbers span');
+const printWhoWin = document.querySelector('[data-summary="who-win"]');
+const winResult = document.querySelector('p.wins span');
+const loseResult = document.querySelector('p.losses span');
+const drawResult = document.querySelector('p.draws span');
+const printPlayerChoice = document.querySelector('[data-summary="your-choice"]');
+const printAIChoice = document.querySelector('[data-summary="ai-choice"]');
+const startBtn = document.querySelector('.start');
+const gameSummary = {
+  numbers: 0,
+  wins: 0,
+  losses: 0,
+  draws: 0,
+  playerMove: '',
+  computerMove: '',
   progress: []
 };
 
-var showButtons = function(){
-  params.pickPaper.classList.toggle('hideButtons');
-  params.pickRock.classList.toggle('hideButtons');
-  params.pickScissors.classList.toggle('hideButtons');    
+function moveSelection() {
+  gameSummary.playerMove = this.dataset.option;
+  moves.forEach(move => move.style.boxShadow = '');
+  this.style.boxShadow = '0 0 0 5px red';
 };
 
-showButtons ();
- 
-params.newGame.addEventListener('click', function(){
-  params.numbOfRounds = prompt('How many rounds do you want to play?');
-  if(isFinite(params.numbOfRounds) && params.numbOfRounds > 0) {
-    params.roundCount.innerHTML = 'You have chosen: ' + params.numbOfRounds + ' rounds to win the game!';
-    showButtons();
-  }else {
-    params.roundCount.innerHTML = 'Please, give a number!';
-    params.newGame.classList.toggle('hideButtons');
+function computerChoice() {
+  const aiChoice = moves[Math.floor(Math.random() * 3)].dataset.option;
+  return aiChoice;
+};
+
+function checkResult(player, ai) {
+  if (player === ai) {
+    return 'draw'
+  } else if (player === 'paper' && ai === 'rock' || player === 'rock' && ai === 'scissors' || player === 'scissors' && ai === 'paper') {
+    return 'win'
+  } else {
+    return 'loss'
+  }
+};
+
+function publishResult(player, ai, result) {
+  printPlayerChoice.textContent = player;
+  printAIChoice.textContent = ai;
+  switch (result) {
+    case 'win':
+      printNumbOfRounds.textContent = --gameSummary.numbers;
+      winResult.textContent = ++gameSummary.wins;
+      printWhoWin.textContent = 'You won :)';
+      break;
+    case 'loss':
+      printNumbOfRounds.textContent = --gameSummary.numbers;
+      loseResult.textContent = ++gameSummary.losses;
+      printWhoWin.textContent = 'You lost :(';
+      break;
+    case 'draw':
+      printNumbOfRounds.textContent = --gameSummary.numbers;
+      drawResult.textContent = ++gameSummary.draws;
+      printWhoWin.textContent = 'draw :\\';
+  }
+  gameSummary.progress.push({
+    playerMove: player,
+    computerMove: ai,
+    playerScore: gameSummary.wins,
+    computerScore: gameSummary.losses,
+    winner: result,
+  });
+}
+
+function newGame() {
+  gameSummary.numbers = prompt('Please, enter number of rounds!');
+  if ((isFinite(gameSummary.numbers)) && (gameSummary.numbers > 0)) {
+    printNumbOfRounds.textContent = gameSummary.numbers;
+    showAndHideEl()
+  } else {
+    alert('Please, enter a number!');
+  }
+};
+
+function endGame() {
+  if (!gameSummary.numbers) {
+    if (gameSummary.wins > gameSummary.losses) {
+      showTableResult('YOU WON ENTIRE GAME');
+      document.querySelector('.modal').style.background = 'rgb(103, 201, 58)';
+    } else if (gameSummary.wins < gameSummary.losses) {
+      showTableResult('YOU LOST ENTIRE GAME');
+      document.querySelector('.modal').style.background = 'rgb(255, 33, 25)';
+    } else if ((gameSummary.wins + gameSummary.draws) == (gameSummary.losses + gameSummary.draws)) {
+      showTableResult('YOU DRAW ENTIRE GAME');
+      document.querySelector('.modal').style.background = 'rgb(137, 185, 240)';
+    }
+    document.querySelector(`[data-option ='${gameSummary.playerMove}']`).style.boxShadow = '';
+    printWhoWin.textContent = '';
+    printPlayerChoice.textContent = '';
+    printAIChoice.textContent = '';
+    winResult.textContent = 0;
+    loseResult.textContent = 0;
+    drawResult.textContent = 0;
+    gameSummary.numbers = 0;
+    gameSummary.wins = 0;
+    gameSummary.losses = 0;
+    gameSummary.draws = 0;
+    gameSummary.playerMove = '';
+    gameSummary.computerMove = '';
+    gameSummary.progress = [];
+    showAndHideEl()
+  }
+};
+
+function startGame() {
+  gameSummary.computerMove = computerChoice();
+  const gameResult = checkResult(gameSummary.playerMove, gameSummary.computerMove);
+  publishResult(gameSummary.playerMove, gameSummary.computerMove, gameResult);
+  endGame();
+};
+
+function showAndHideEl() {
+  document.querySelector('#container').classList.toggle('show');
+  startBtn.classList.toggle('show');
+};
+
+function showTableResult(text) {
+  document.querySelectorAll('.result').forEach(modal => modal.classList.add('showResult'))
+  let tableResult = document.querySelector('tbody');
+  tableResult.textContent = '';
+  for (let i = 0; i < gameSummary.progress.length; i++) {
+    tableResult.innerHTML += `<tr><td>${gameSummary.progress[i].playerMove}</td><td>${gameSummary.progress[i].computerMove}</td><td>${gameSummary.progress[i].computerScore}</td><td>${gameSummary.progress[i].playerScore}</td><td>${gameSummary.progress[i].winner}</td></tr>`;
   };
-  params.newGame.classList.toggle('hideButtons');
-  params.output.innerHTML = '';
-  params.playerScore = 0;
-  params.computerScore = 0;
-  params.progress = [];
+  document.querySelector('header').textContent = text;
+};
+
+document.querySelector('a').addEventListener('click', function (e) {
+  e.preventDefault();
+  document.querySelector('.overlay').classList.remove('showResult');
 });
 
-var selectMove = document.getElementsByClassName('player-move');
+moves.forEach(move => move.addEventListener('click', moveSelection));
+moves.forEach(move => move.addEventListener('click', startGame));
 
-for(var i = 0; i < selectMove.length; i++){
-  selectMove[i].addEventListener('click', function(){
-  var kindOfMove = this.getAttribute('data-move');
-  playerMove(kindOfMove, params.winner, params.playerScore, params.computerScore, computerMove());
-  countingScores();
-  gameOver();
-  });
-};
-
-var computerMove = function() {
-  var computerNumber = Math.floor(Math.random() * 3  + 1);
-  if(computerNumber == 1) {
-    computerNumber = 'paper';
-  }else if(computerNumber == 2) {
-    computerNumber = 'rock';
-  }else {
-    computerNumber = 'scissors';
-  }
-  return computerNumber;
-};
-
-var playerMove = function(kindOfMove,winner,playerScore,computerScore, computerPick) {
-  if(kindOfMove === computerPick) {
-    params.output.innerHTML = 'It is DRAW!<br>You chose: '+ kindOfMove + ' computer chose: ' + computerPick + '<br>';
-    params.winner = 'no one';
-  }else if(
-    (kindOfMove === 'paper' && computerPick === 'rock') || 
-    (kindOfMove === 'rock' && computerPick === 'scissors') ||
-    (kindOfMove === 'scissors' && computerPick === 'paper')) {
-      params.output.innerHTML = 'You WON !<br>You chose: ' + kindOfMove + ' and computer chose: ' + computerPick + '<br>';
-      params.playerScore++;
-      params.winner = 'player';
-  }else {
-      params.output.innerHTML = ' You LOST !<br>You chose: ' + kindOfMove + ' and computer chose: ' + computerPick + '<br>';
-      params.computerScore++;
-      params.winner = 'computer';
-  }
-  params.progress.push({
-    playerMove: kindOfMove,
-    computerMove: computerPick,
-    playerScore: params.playerScore,
-    computerScore: params.computerScore,
-    winner: params.winner,
-  });
-};
-
-var countingScores = function (){
-  params.playerScoreCount.innerHTML = 'Player score: ' + params.playerScore;
-  params.computerScoreCount.innerHTML = 'Computer score: ' + params.computerScore;
-};
-
-var gameOver = function (){
-  if(params.playerScore == params.numbOfRounds || params.computerScore == params.numbOfRounds) {
-    if (params.playerScore > params.computerScore) {
-      showResult('YOU WON ENTIRE GAME');
-    } else {
-      showResult('YOU LOST ENTIRE GAME');
-    };
-    params.output.innerHTML = '';
-    params.playerScoreCount.innerHTML = '';
-    params.roundCount.innerHTML = '';
-    params.computerScoreCount.innerHTML = '';
-    params.newGame.classList.toggle('hideButtons');
-    showButtons();
-  }
-};
-
-var showResult = function(text){
-  var showModals = document.getElementsByClassName('result');
-  for(var i = 0; i < showModals.length; i++){
-  showModals[i].classList.add('show');
-  };
-  var tableResult = document.querySelector('tbody');
-  tableResult.innerHTML = '';
-  for (var j = 0; j < params.progress.length; j++) {
-  tableResult.innerHTML += '<tr><td>' + params.progress[j].playerMove + '</td><td>' + params.progress[j].computerMove +'</td><td>' + params.progress[j].computerScore + '</td><td>' + params.progress[j].playerScore +'</td><td>' + params.progress[j].winner + '</td></tr>'; 
-  };
-  document.querySelector('header').innerHTML = text;
-};
-
-var hideModal = function(event){
-	event.preventDefault();
-  document.querySelector('#modal-overlay').classList.remove('show');
-  
-};
-
-var closeButtons = document.querySelectorAll('.close');
-for(var i = 0; i < closeButtons.length; i++){
-  closeButtons[i].addEventListener('click', hideModal)
-}
-
-var modals = document.querySelectorAll('.modal');
-for(var i = 0; i < modals.length; i++){
-  modals[i].addEventListener('click', function(event){
-    event.stopPropagation();
-  });
-}
+startBtn.addEventListener('click', newGame);
